@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1706.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "accountingMAUIBlazor", "accountingMAUIBlazor\accountingMAUIBlazor.csproj", "{A157F185-5B16-418B-9E98-34240E93EE65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "accountingMAUIBlazor", "accountingMAUIBlazor\accountingMAUIBlazor.csproj", "{B8B899A7-60DB-49B7-93E2-E0B36295598A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A157F185-5B16-418B-9E98-34240E93EE65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A157F185-5B16-418B-9E98-34240E93EE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A157F185-5B16-418B-9E98-34240E93EE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A157F185-5B16-418B-9E98-34240E93EE65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8B899A7-60DB-49B7-93E2-E0B36295598A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B899A7-60DB-49B7-93E2-E0B36295598A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B899A7-60DB-49B7-93E2-E0B36295598A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B899A7-60DB-49B7-93E2-E0B36295598A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F182470E-8D81-4F96-9E6B-D9C96D325773}
+		SolutionGuid = {B2502772-C3BA-4993-AD25-8CB957639F96}
 	EndGlobalSection
 EndGlobal
