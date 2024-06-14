@@ -1,0 +1,20 @@
+﻿@page "/account/{Id:int?}"
+
+<PageTitle>账户细目</PageTitle>
+
+<h1>指定资金账户</h1>
+
+<p>Account ID: @Id</p>
+
+
+
+@*@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Id = Id ?? 0;
+    }
+}*@
+
