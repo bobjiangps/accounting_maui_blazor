@@ -1,0 +1,12 @@
+﻿@page "/login"
+@inject NavigationManager NavigationManager
+@inject IUserService _userService
+
+
+<h3>Test Login</h3>
+<p>Clicked Times: @click_count</p>
+<p>token: @token</p>
+<button class="btn btn-primary" @onclick="LoginWithoutInput">Click to login directly</button>
+
+
+
