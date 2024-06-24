@@ -4,9 +4,43 @@
 
 
 <h3>Test Login</h3>
-<p>Clicked Times: @click_count</p>
-<p>token: @token</p>
-<button class="btn btn-primary" @onclick="LoginWithoutInput">Click to login directly</button>
 
-
-
+@if (@isLoggedIn)
+{
+    <div class="alert alert-success">你好 @loginName, 你已经登录过了</div>
+    <a @onclick="SignOut">退出登录</a>
+}
+else
+{
+    <div class="row">
+        <div class="col-6">
+            @if (!string.IsNullOrWhiteSpace(@errorMessage))
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
+            @if (!string.IsNullOrWhiteSpace(@formMessage))
+            {
+                <div class="alert alert-success">@formMessage</div>
+            }
+            <EditForm Model="LoginModel" OnValidSubmit="LoginWithInput">
+                <DataAnnotationsValidator />
+                <div class="mt-2">
+                    <label class="col-2 form-label">用户名:</label>
+                    <InputText @bind-Value="LoginModel.UserName" class="form-control col-10" />
+                    <ValidationMessage For="()=>LoginModel.UserName" />
+                </div>
+                <div class="mt-2">
+                    <label class="col-2 form-label">密码:</label>
+                    <InputText type="password" @bind-Value="LoginModel.Password" class="form-control col-10" />
+                    <ValidationMessage For="()=>LoginModel.Password" />
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-primary">
+                        登录
+                    </button>
+                    <Button Color="Color.Success" Icon="fa-solid fa-font-awesome" Text="测试" />
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
