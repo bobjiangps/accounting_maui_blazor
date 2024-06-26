@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text;
 using accountingMAUIBlazor.Models;
+using System.Net.Http.Headers;
 
 namespace accountingMAUIBlazor.Services;
 
@@ -10,14 +11,19 @@ public class UserService : IUserService
     //public string loginName;
     //private string _token = string.Empty;
 
-    public bool IsLoggedIn;
+    public bool isLoggedIn;
     public string loginName;
     private string _token;
+    private readonly IHttpClientFactory _httpClientFactory;
+    public BackendService backend = new();
+
+    public UserService(IHttpClientFactory httpClientFactory) =>
+        _httpClientFactory = httpClientFactory;
 
     public bool CheckLoggedStatus()
     {
-        IsLoggedIn = Preferences.Get("IsLoggedIn", false);
-        return IsLoggedIn;
+        isLoggedIn = Preferences.Get("IsLoggedIn", false);
+        return isLoggedIn;
     }
 
     public string CheckLoginName()
@@ -29,13 +35,14 @@ public class UserService : IUserService
     public async Task<String> GetTokenAsync(string userName, string passWord)
     {
         _token = Preferences.Get("UserToken", String.Empty);
-        if (!string.IsNullOrWhiteSpace(_token) || IsLoggedIn)
+        if (!string.IsNullOrWhiteSpace(_token) || isLoggedIn)
         {
             Console.WriteLine("no need to request api, return existent token");
             return _token;
         }
 
-        using var httpClient = new HttpClient();
+        //using var httpClient = new HttpClient();
+        using var httpClient = _httpClientFactory.CreateClient("Accounting");
         HttpResponseMessage response;
         try
         {
@@ -46,8 +53,9 @@ public class UserService : IUserService
             };
             var loginContent = new StringContent(JsonSerializer.Serialize(loginData), Encoding.UTF8, "application/json");
 
-            response =
-                await httpClient.PostAsync("http://127.0.0.1:8000/external/api/login/", loginContent);
+            //response = await httpClient.PostAsync("http://127.0.0.1:8000/external/api/login/", loginContent);
+            //response = await httpClient.PostAsync("login/", loginContent);
+            response = await httpClient.PostAsync(backend.GetApiByAlias("login"), loginContent);
             response.EnsureSuccessStatusCode();
         }
         catch (Exception e)
@@ -64,8 +72,8 @@ public class UserService : IUserService
             Preferences.Set("UserToken", _token);
             loginName = JsonSerializer.Deserialize<Token>(result)?.username ?? throw new JsonException();
             Preferences.Set("loginName", loginName);
-            IsLoggedIn = true;
-            Preferences.Set("IsLoggedIn", IsLoggedIn);
+            isLoggedIn = true;
+            Preferences.Set("IsLoggedIn", isLoggedIn);
         }
         catch (Exception e)
         {
@@ -83,11 +91,14 @@ public class UserService : IUserService
         {
             try
             {
-                using var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("Authorization", $"Token {_token}");
+                //using var httpClient = new HttpClient();
+                using var httpClient = _httpClientFactory.CreateClient("Accounting");
+                //httpClient.DefaultRequestHeaders.Add("Authorization", $"Token {_token}");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", _token);
                 HttpResponseMessage response;
-                response = await httpClient.PostAsync("http://127.0.0.1:8000/external/api/logout/", null);
-                //response.EnsureSuccessStatusCode();
+                //response = await httpClient.PostAsync("http://127.0.0.1:8000/external/api/logout/", null);
+                //response = await httpClient.PostAsync("logout/", null);
+                response = await httpClient.PostAsync(backend.GetApiByAlias("logout"), null);
                 var statusCode = (int)response.StatusCode;
                 int[] availableCode = new[] { 200, 401 };
                 if (availableCode.Contains(statusCode))
@@ -96,8 +107,8 @@ public class UserService : IUserService
                     Preferences.Set("UserToken", _token);
                     loginName = null;
                     Preferences.Set("loginName", loginName);
-                    IsLoggedIn = false;
-                    Preferences.Set("IsLoggedIn", IsLoggedIn);
+                    isLoggedIn = false;
+                    Preferences.Set("IsLoggedIn", isLoggedIn);
                 }
                 else
                 {
