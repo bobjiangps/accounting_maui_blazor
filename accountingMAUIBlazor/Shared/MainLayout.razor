@@ -1,18 +1,50 @@
-﻿@inherits LayoutComponentBase
+﻿@using accountingMAUIBlazor.Pages;
+@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    <CascadingValue Value="this">
+        <div class="sidebar">
+            <NavMenu />
         </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+        <main>
+            <div class="top-row px-4">
+                <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            </div>
+
+            <article class="content px-4">
+                @Body
+
+                @if (@hasErrorGlobal)
+                {
+                    <hr />
+                    <ErrorComponent></ErrorComponent>
+                    <ErrorComponent ErrorMessage=@customizedError></ErrorComponent>
+                }
+            </article>
+        </main>
+    </CascadingValue>
 </div>
 
+
+@code {
+    public string customizedError = "this is a customized error message";
+    private bool _hasErrorGlobal;
+    public bool hasErrorGlobal
+    {
+        get => _hasErrorGlobal;
+        set
+        {
+            if (_hasErrorGlobal != value)
+            {
+                _hasErrorGlobal = value;
+                InvokeAsync(() => StateHasChanged());
+            }
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        _hasErrorGlobal = false;
+    }
+}
