@@ -1,0 +1,19 @@
+﻿<h3>出错啦</h3>
+
+<span style="color: red;">@ErrorMessage</span>
+
+
+@code {
+
+    [Parameter]
+    public string ErrorMessage { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (string.IsNullOrWhiteSpace(ErrorMessage))
+        {
+            ErrorMessage = "未知错误";
+        }
+    }
+
+}
