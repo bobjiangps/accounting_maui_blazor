@@ -3,4 +3,31 @@
 
 <PageTitle>账户总览</PageTitle>
 
-<h1>资金账户汇总</h1>
+<Collapse IsAccordion="true">
+    <CollapseItems>
+        <CollapseItem Text="当月结余" TitleColor="Color.Warning" IsCollapsed="false">
+            <div class="container justify-content-center align-items-center">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col-8" align="center" style="font-size: 2.4em; color: green;">
+                        <span>结余:</span>
+                        <span>23320.3</span>
+                    </div>
+                    <div class="col" align="center" style="font-size: 1.2em; color: gray;">
+                        <span>2024-09</span>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col" align="center" style="font-size: 1.5em;">
+                            <span>收入:</span>
+                            <span>39868.69</span>
+                        </div>
+                        <div class="col" align="center" style="font-size: 1.5em;">
+                            <span>支出:</span>
+                            <span>7865.43</span>
+                        </div>
+                    </div>
+                </div>
+        </CollapseItem>
+    </CollapseItems>
+</Collapse>
