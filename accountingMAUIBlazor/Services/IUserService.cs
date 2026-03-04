@@ -2,7 +2,7 @@
 
 public interface IUserService
 {
-    Task<String> GetTokenAsync(string userName, string password);
+    Task<String> GetTokenAsync(string userName = "", string password = "");
 
     Task RevokeTokenAsync();
 

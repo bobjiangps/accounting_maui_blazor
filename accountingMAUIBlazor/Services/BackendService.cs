@@ -7,7 +7,8 @@ public class BackendService : IBackendService
     public Dictionary<string, string> apiList = new()
     {
         { "login", "login/" },
-        { "logout", "logout/" }
+        { "logout", "logout/" },
+        { "accounts", "accounts/" }
     };
 
     public string GetApiByAlias(string alias)
